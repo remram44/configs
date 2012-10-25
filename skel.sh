@@ -1,4 +1,4 @@
-catcat > .vimrc <<END
+cat > .vimrc <<END
 syntax on
 set expandtab
 set softtabstop=4
