@@ -1,5 +1,0 @@
-console-data openssh-client openssh-server wget zip unzip
-debfoster sudo vim screen build-essential g++ gdb python lua5.1 apt-file netcat tcpdump dig make lshw gnupg sqlite3 openssl
-git mercurial
-python-dev python-setuptools virtualenv
-apache2 mysql-server
