@@ -97,7 +97,7 @@ if [ "x$NOT_FOUND" != x ] ; then
 fi
 
 # Propose additional package lists
-propose_package "development" "build-essential g++ gdb lua5.1 make
+propose_package "development" "build-essential pkg-config g++ gdb lua5.1 make
         sqlite3 git mercurial"
 propose_package "web server" "apache2"
 
