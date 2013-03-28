@@ -24,6 +24,15 @@ defhstatus "screen ^E (^Et) | $USER@^EH"
 hardstatus off
 END
 
+cat > .gitconfig <<END
+[user]
+	name = Remi Rampin
+	email = remirampin@gmail.com
+[alias]
+	np = !sh -c 'git log --graph --decorate --branches --not --remotes=$1' -
+	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+END
+
 
 ####################
 # This one is done manually
