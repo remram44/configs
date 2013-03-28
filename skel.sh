@@ -37,7 +37,7 @@ END
 ####################
 # This one is done manually
 #
-# We show my usual aliases and want for enter to be pressed, then launch the
+# We show my usual aliases and wait for enter to be pressed, then launch the
 # editor
 #
 cat <<END
@@ -47,7 +47,7 @@ alias ifconfig='/sbin/ifconfig'
 
 Press enter to run 'vim .bashrc'
 END
-read && vim .bashrc && . .bashrc
+read && vi .bashrc && . .bashrc
 
 
 ####################
