@@ -31,6 +31,7 @@ cat > .gitconfig <<END
 [alias]
 	np = !sh -c 'git log --graph --decorate --branches --not --remotes=$1' -
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+	fa = !git fetch --all -p; git submodule foreach git fetch --all -p
 END
 
 
