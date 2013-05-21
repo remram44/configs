@@ -28,10 +28,14 @@ cat > .gitconfig <<END
 [user]
 	name = Remi Rampin
 	email = remirampin@gmail.com
+[merge]
+	conflictstyle = diff3
+	defaultToUpstream = true
 [alias]
 	np = !sh -c 'git log --graph --decorate --branches --not --remotes=$1' -
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
-	fa = !git fetch --all -p; git submodule foreach git fetch --all -p
+	fa = !git fetch --all -p && git submodule foreach git fetch --all -p
+	p = !git merge --ff-only
 END
 
 
