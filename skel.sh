@@ -88,7 +88,7 @@ check_deb_pkgs() {
 
 local REQUIRED=$(cat <<END
 console-data openssh-client openssh-server wget zip unzip dnsutils dialog
-debfoster sudo vim screen apt-file netcat tcpdump dig lshw gnupg openssl
+debfoster sudo vim screen apt-file netcat tcpdump dnsutils lshw gnupg openssl
 END
 )
 
