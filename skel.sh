@@ -191,7 +191,8 @@ if [ "x$rep" == "x" ] || [ "x$rep" == "xy" ] || [ "x$rep" == "xY" ] ; then
             echo "export TZ='$ZONE'" >> .profile
         fi
     fi
-    TZ=$ZONE date
+    export TZ=$ZONE
+    date
 else
     echo "Skipping timezone setup"
 fi
