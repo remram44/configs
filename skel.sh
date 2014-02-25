@@ -49,6 +49,9 @@ cat <<END
 alias ll='ls -lh'
 alias la='ls -lAh'
 alias ifconfig='/sbin/ifconfig'
+a(){
+    source "$1/bin/activate"
+}
 
 Press enter to run 'vim .bashrc'
 END
