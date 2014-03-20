@@ -105,12 +105,14 @@ for pkg in $REQUIRED; do
     if dpkg -l | grep --silent "ii  $pkg "; then
         FOUND=$((FOUND + 1))
     else
-        NOT_FOUND="$SKEL_NOT_FOUND $pkg"
+        NOT_FOUND="$NOT_FOUND $pkg"
     fi
 done
 if [ "x$NOT_FOUND" != x ] ; then
     echo "found $FOUND/$(echo $REQUIRED | wc --words) required packages; installing"
     install_pkgs $NOT_FOUND
+else
+    echo "found $FOUND/$(echo $REQUIRED | wc --words) required packages; moving on"
 fi
 
 # Propose additional package lists
@@ -164,6 +166,8 @@ if [ "x$rep" == "x" ] || [ "x$rep" == "xy" ] || [ "x$rep" == "xY" ] ; then
         echo "# Locale settings" >> .profile
         echo "export LANG='$rep'" >> .profile
     fi
+else
+    echo "Skipping locale setup"
 fi
 
 }
