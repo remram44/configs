@@ -36,6 +36,7 @@ cat > .gitconfig <<END
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 	fa = !git fetch --all -p && git submodule foreach git fetch --all -p
 	p = !git merge --ff-only
+	bdiff = !sh -c 'git difftool --dir-diff $(git merge-base $1 $2)..$2' -
 END
 
 
