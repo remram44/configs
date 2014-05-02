@@ -7,7 +7,7 @@ fi
 ####################
 # Setup rc files
 #
-cat > .vimrc <<END
+cat > .vimrc <<'END'
 syntax on
 set expandtab
 set softtabstop=4
@@ -16,7 +16,7 @@ set cindent
 set shiftwidth=4
 END
 
-cat > .screenrc <<END
+cat > .screenrc <<'END'
 termcapinfo xterm ti@:te@
 startup_message off
 shell /bin/bash
@@ -24,7 +24,7 @@ defhstatus "screen ^E (^Et) | $USER@^EH"
 hardstatus off
 END
 
-cat > .gitconfig <<END
+cat > .gitconfig <<'END'
 [user]
 	name = Remi Rampin
 	email = remirampin@gmail.com
@@ -46,7 +46,7 @@ END
 # We show my usual aliases and wait for enter to be pressed, then launch the
 # editor
 #
-cat <<END
+cat <<'END'
 alias ll='ls -lh'
 alias la='ls -lAh'
 alias ifconfig='/sbin/ifconfig'
@@ -63,7 +63,7 @@ read && vi .bashrc && . .bashrc
 # Setup SSH keys
 #
 mkdir .ssh
-cat > .ssh/authorized_keys <<END
+cat > .ssh/authorized_keys <<'END'
 ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAwrqlmGDryX2FA4Rdd8A98/25WDtr7MDyTpXSaGqjuytPNV2tmokvPOYGwMBYKlJlE6rd8+GqrKu+/WVhOjGD/kPWA1PUMZmvfz0M610QoR7SASts2FuFBW2NZNjKSssTJcVrsO0kJoW5nELzyYYW+VWA1IMW0ege0bTD6V7EfSc= Rasus
 ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAtwykPMe1ypsoLwk4nXlVYJK1F/gPJ2f9AXGQgNkJkNXQ4iGJt0UoMtCRcSWRqAmTosILWmAeQsHDkSObXgkqYypDgkKuE7quP0557kj8bclyMWKfCqrPZz/amxJ7PGfTzx6T5Z+3bbLf2GJGcYzKUheF7caCgFLs0nEQuwVxPQM= Nexus4
 END
@@ -90,7 +90,7 @@ fi
 #
 check_deb_pkgs() {
 
-local REQUIRED=$(cat <<END
+local REQUIRED=$(cat <<'END'
 console-data openssh-client openssh-server wget zip unzip dnsutils dialog mosh
 debfoster sudo vim screen apt-file netcat tcpdump dnsutils lshw gnupg openssl
 moreutils pv molly-guard
