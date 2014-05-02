@@ -1,5 +1,5 @@
 if [ "$PWD" != "$HOME" ] ; then
-    echo "Error: this script should be run from your HOME"
+    echo "Error: this script should be run from your HOME" >&2
     exit 1
 fi
 
@@ -63,7 +63,10 @@ read && vi .bashrc && . .bashrc
 # Setup SSH keys
 #
 mkdir .ssh
-cat > .ssh/authorized_keys <<'END'
+if [ -s .ssh/authorized_keys ]; then
+    echo "Warning: authorized_keys exists. Appending our keys anyway." >&2
+fi
+cat >> .ssh/authorized_keys <<'END'
 ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAwrqlmGDryX2FA4Rdd8A98/25WDtr7MDyTpXSaGqjuytPNV2tmokvPOYGwMBYKlJlE6rd8+GqrKu+/WVhOjGD/kPWA1PUMZmvfz0M610QoR7SASts2FuFBW2NZNjKSssTJcVrsO0kJoW5nELzyYYW+VWA1IMW0ege0bTD6V7EfSc= Rasus
 ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAtwykPMe1ypsoLwk4nXlVYJK1F/gPJ2f9AXGQgNkJkNXQ4iGJt0UoMtCRcSWRqAmTosILWmAeQsHDkSObXgkqYypDgkKuE7quP0557kj8bclyMWKfCqrPZz/amxJ7PGfTzx6T5Z+3bbLf2GJGcYzKUheF7caCgFLs0nEQuwVxPQM= Nexus4
 END
