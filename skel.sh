@@ -31,6 +31,7 @@ cat > .gitconfig <<'END'
 [merge]
 	conflictstyle = diff3
 	defaultToUpstream = true
+	ff = false
 [alias]
 	np = !sh -c 'git log --graph --decorate --branches --not --remotes=$1' -
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
