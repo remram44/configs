@@ -123,7 +123,7 @@ fi
 
 # Propose additional package lists
 propose_package "development" "build-essential pkg-config g++ gdb lua5.1 make
-        sqlite3 git mercurial"
+        sqlite3 git mercurial python python-pip python-virtualenv python-dev"
 propose_package "web server" "apache2"
 
 }
