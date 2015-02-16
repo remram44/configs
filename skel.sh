@@ -39,6 +39,7 @@ cat > .gitconfig <<'END'
 	p = !git merge --ff-only
 	dd = !git difftool --dir-diff
 	bdiff = !sh -c 'git difftool --dir-diff $(git merge-base $1 $2)..$2' -
+	lg = !git log --oneline --graph --decorate
 END
 
 
