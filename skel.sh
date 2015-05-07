@@ -28,11 +28,28 @@ cat > .gitconfig <<'END'
 [user]
 	name = Remi Rampin
 	email = remirampin@gmail.com
+	signingkey = 0x850C4075
+[difftool "kdiff3"]
+	path = kdiff3
+	trustExitCode = false
+[difftool]
+	prompt = false
+[diff]
+	tool = kdiff3
+[mergetool "kdiff3"]
+	path = kdiff3
+	trustExitCode = false
+[mergetool]
+	keepBackup = false
 [merge]
+	tool = kdiff3
 	conflictstyle = diff3
 	defaultToUpstream = true
 	ff = false
+[rebase]
+	autoSquash = true
 [alias]
+	co = checkout
 	np = !sh -c 'git log --graph --decorate --branches --not --remotes=$1' -
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 	fa = !git fetch --all -p && git submodule foreach git fetch --all -p
@@ -40,6 +57,7 @@ cat > .gitconfig <<'END'
 	dd = !git difftool --dir-diff
 	bdiff = !sh -c 'git difftool --dir-diff $(git merge-base $1 $2)..$2' -
 	lg = !git log --oneline --graph --decorate
+	k = !gitk --all &
 END
 
 
