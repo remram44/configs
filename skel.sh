@@ -58,6 +58,8 @@ cat > .gitconfig <<'END'
 	bdiff = !sh -c 'git difftool --dir-diff $(git merge-base $1 $2)..$2' -
 	lg = !git log --oneline --graph --decorate
 	k = !gitk --all &
+	cp = cherry-pick
+	st = status
 END
 
 
