@@ -60,6 +60,7 @@ cat > .gitconfig <<'END'
 	k = !gitk --all &
 	cp = cherry-pick
 	st = status
+	detach = !git checkout HEAD~0
 END
 
 
