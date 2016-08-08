@@ -14,6 +14,20 @@ set softtabstop=4
 set tabstop=4
 set cindent
 set shiftwidth=4
+set hidden
+
+set nocompatible
+
+let mapleader = ","
+
+nnoremap <esc> :noh<return><esc>
+nnoremap <esc>^[ <esc>^[
+
+set incsearch
+set hlsearch
+
+set winheight=30
+set winminheight=5
 END
 
 cat > .screenrc <<'END'
