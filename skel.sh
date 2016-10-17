@@ -114,6 +114,14 @@ a(){
     source "$1/bin/activate"
 }
 
+dockviz(){
+    if [ -n "$DOCKER_HOST" ]; then
+        curl --cert "$DOCKER_CERT_PATH/cert.pem" --key "$DOCKER_CERT_PATH/key.pem" -k "https://$(echo $DOCKER_HOST | sed 's/tcp:\/\///')/images/json?all=1" | docker run -i nate/dockviz images --tree
+    else
+        curl --unix-socket /var/run/docker.sock -k "http://localhost/images/json?all=1" | docker run -i nate/dockviz images --tree
+    fi
+}
+
 Press enter to run 'vim .bashrc'
 END
 read && vi .bashrc && . .bashrc
