@@ -213,6 +213,13 @@ fi
 
 
 if [ -f /etc/debian_version ] ; then
+    if ! dpkg -l | grep --silent 'ii aptitude'; then
+        if dpkg -l | grep --silent "ii  sudo "; then
+            sudo apt-get install aptitude
+        else
+            su -c "apt-get install aptitude"
+        fi
+    fi
     check_deb_pkgs
 fi
 
