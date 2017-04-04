@@ -107,6 +107,22 @@ HISTFILESIZE=2000
 HISTTIMEFORMAT='%F %T '
 
 
+# Make sure xterm-256color sets color_prompt
+
+
+if [ "$color_prompt" = yes ]; then
+    case $(hostname) in
+        missy) _HOSTCOLOR='1;33' ;;
+        randy) _HOSTCOLOR='1;32' ;;
+        ks) _HOSTCOLOR='1;34' ;;
+        *) _HOSTCOLOR='1;37' ;;
+    esac
+    PS1='\n`s=$?; if [ $s != 0 ]; then echo "\[\033[7;31;40m\][e: $s]\[\033[0m\] "; fi``j=$(jobs | wc -l); if [ $j != 0 ]; then echo "\[\033[1;32m\][$j jobs] "; fi`\[\033[`if [ "\u" = root ]; then echo "1;33;46"; elif [ "\u" = remram ]; then echo "1;36"; else echo "1;35"; fi`m\]\u\[\033[1;37m\]\[\033[0;36m\] `date "+%H:%M:%S"`\n\[\033[0m\][\[\033['$_HOSTCOLOR'm\]\w\[\033[0m\]] '
+else
+    PS1='\n`s=$?; if [ $s != 0 ]; then echo "[e: $s] "; fi``j=$(jobs | wc -l); if [ $j != 0 ]; then echo "[$j jobs] "; fi`\u `date "+%H:%M:%S"`\n[\w] '
+fi
+
+
 alias ll='ls -lh'
 alias la='ls -lAh'
 alias ifconfig='/sbin/ifconfig'
