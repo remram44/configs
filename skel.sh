@@ -46,6 +46,11 @@ defhstatus "screen ^E (^Et) | $USER@^EH"
 hardstatus off
 END
 
+cat > .sqliterc <<'END'
+.headers on
+.mode column
+END
+
 cat > .gitconfig <<'END'
 [user]
 	name = Remi Rampin
