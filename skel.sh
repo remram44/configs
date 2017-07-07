@@ -22,6 +22,8 @@ let mapleader = ","
 
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 set incsearch
 set hlsearch
