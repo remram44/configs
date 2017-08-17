@@ -77,8 +77,11 @@ cat > .gitconfig <<'END'
 	ff = false
 [rebase]
 	autoSquash = true
+[push]
+	default = simple
 [alias]
 	co = checkout
+	pushf = push --force-with-lease
 	np = !sh -c 'git log --graph --decorate --branches --not --remotes=$1' -
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 	fa = !git fetch --all -p && git submodule foreach git fetch --all -p
