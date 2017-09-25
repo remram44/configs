@@ -27,6 +27,8 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 set incsearch
 set hlsearch
+set ignorecase
+set smartcase
 
 set winheight=30
 set winminheight=5
