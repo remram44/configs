@@ -139,7 +139,10 @@ fi
 
 alias ll='ls -lh'
 alias la='ls -lAh'
+alias cv='cat -v'
 alias ifconfig='/sbin/ifconfig'
+alias rs='rsync -avz --partial --progress -s'
+alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 a(){
     source "$1/bin/activate"
 }
