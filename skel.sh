@@ -15,6 +15,7 @@ set tabstop=4
 set cindent
 set shiftwidth=4
 set hidden
+set backspace=indent,eol,start
 
 set nocompatible
 
@@ -32,6 +33,11 @@ set smartcase
 
 set winheight=30
 set winminheight=5
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Highlight EOL whitespace, http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 highlight ExtraWhitespace ctermbg=darkred guibg=#382424
