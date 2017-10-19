@@ -46,6 +46,9 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 " The above flashes annoyingly while typing, be calmer in insert mode
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+
+"Plugin 'ctrlpvim/ctrlp.vim'
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard && git submodule foreach "git ls-files -co --exclude-standard | while read i; do echo \"\$path/\$i\"; done"']
 END
 
 cat > .screenrc <<'END'
