@@ -154,6 +154,11 @@ alias cv='cat -v'
 alias ifconfig='/sbin/ifconfig'
 alias rs='rsync -avz --partial --progress -s'
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
+o(){
+    for i in "$@"; do
+        xdg-open "$i" >/dev/null 2>&1
+    done
+}
 a(){
     source "$1/bin/activate"
 }
@@ -165,6 +170,19 @@ dockviz(){
         curl --unix-socket /var/run/docker.sock -k "http://localhost/images/json?all=1" | docker run -i nate/dockviz images --tree
     fi
 }
+setmonitor(){
+    if [ "$1" = "left" ]; then
+        xrandr --output DP-1-2 --left-of eDP-1
+    elif [ "$1" = "right" ]; then
+        xrandr --output DP-1-2 --right-of eDP-1
+    else
+        echo "Usage: setmonitor <left|right>" >&2
+        return 1
+    fi
+}
+if type thefuck &>/dev/null; then
+    eval $(thefuck --alias)
+fi
 
 Press enter to run 'vim .bashrc'
 END
