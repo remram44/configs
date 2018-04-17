@@ -137,7 +137,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 if [ "$color_prompt" = yes ]; then
     case $(hostname) in
         missy) _HOSTCOLOR='1;33' ;;
-        randy) _HOSTCOLOR='1;32' ;;
+        axon) _HOSTCOLOR='1;32' ;;
         ks) _HOSTCOLOR='1;31' ;;
         dibo) _HOSTCOLOR='1;34' ;;
         *) _HOSTCOLOR='1;37' ;;
