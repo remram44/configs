@@ -50,6 +50,7 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 
 "Plugin 'ctrlpvim/ctrlp.vim'
 "let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard && git submodule foreach "git ls-files -co --exclude-standard | while read i; do echo \"\$path/\$i\"; done"']
+"let g:ctrlp_switch_buffer = ''
 END
 
 cat > .screenrc <<'END'
