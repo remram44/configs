@@ -30,6 +30,7 @@ set incsearch
 set hlsearch
 set ignorecase
 set smartcase
+set laststatus=2
 
 set winheight=30
 set winminheight=5
