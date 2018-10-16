@@ -337,7 +337,7 @@ if [ "x$rep" == "x" ] || [ "x$rep" == "xy" ] || [ "x$rep" == "xY" ] ; then
     read rep
     if [ "x$rep" == "x" ] || [ "x$rep" == "xy" ] || [ "x$rep" == "xY" ] ; then
         ZONE=$(tzselect)
-        if [ "xTZ" != x ] ; then
+        if [ "x$TZ" != x ] ; then
             echo >> .profile
             echo "# Timezone" >> .profile
             echo "export TZ='$ZONE'" >> .profile
