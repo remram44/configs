@@ -229,7 +229,7 @@ check_deb_pkgs() {
 local REQUIRED=$(cat <<'END'
 console-data openssh-client openssh-server wget zip unzip dnsutils dialog mosh
 debfoster sudo vim screen apt-file netcat tcpdump dnsutils lshw gnupg openssl
-moreutils pv molly-guard
+moreutils pv molly-guard bash-completion
 END
 )
 
