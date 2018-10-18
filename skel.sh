@@ -187,9 +187,9 @@ usedocker(){
 
 dockviz(){
     if [ -n "$DOCKER_HOST" ]; then
-        curl --cert "$DOCKER_CERT_PATH/cert.pem" --key "$DOCKER_CERT_PATH/key.pem" -k "https://$(echo $DOCKER_HOST | sed 's/tcp:\/\///')/images/json?all=1" | docker run -i --rm nate/dockviz images --tree
+        curl --cert "$DOCKER_CERT_PATH/cert.pem" --key "$DOCKER_CERT_PATH/key.pem" -k "https://$(echo $DOCKER_HOST | sed 's/tcp:\/\///')/images/json?all=1" | docker run -i --rm nate/dockviz images --tree --stdin
     else
-        curl --unix-socket /var/run/docker.sock -k "http://localhost/images/json?all=1" | docker run -i --rm nate/dockviz images --tree
+        curl --unix-socket /var/run/docker.sock -k "http://localhost/images/json?all=1" | docker run -i --rm nate/dockviz images --tree --stdin
     fi
 }
 setmonitor(){
