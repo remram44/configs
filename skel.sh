@@ -165,6 +165,13 @@ else
 '\h \w'\
 '`if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then if [ $(git rev-parse --is-inside-work-tree) = true ]; then echo " ($(git rev-parse --abbrev-ref HEAD 2>/dev/null))"; fi; fi`$ '
 fi
+if [ -n "$PRESENTATION" ]; then
+    if [ "$color_prompt" = yes ]; then
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    else
+        PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    fi
+fi
 
 
 alias ll='ls -lh'
