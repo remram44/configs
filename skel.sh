@@ -147,6 +147,7 @@ if [ "$color_prompt" = yes ]; then
 '`if [ "x$CONDA_PREFIX" != x ]; then echo "\[\033[1;32;40m\][conda: $(basename $CONDA_PREFIX)]\[\033[0m\] "; fi`'\
 '`if [ "x$VIRTUAL_ENV" != x ]; then echo "\[\033[1;32;40m\][py: $(basename $VIRTUAL_ENV)]\[\033[0m\] "; fi`'\
 '`j=$(jobs | wc -l | xargs); if [ $j != 0 ]; then echo "\[\033[1;32m\][$j jobs] "; fi`'\
+'`if SUDO_ASKPASS=/bin/false sudo -A -v >/dev/null 2>&1; then echo "\[\033[1;33;46m\]SUDO\[\033[0m\] "; fi`'\
 '`if id -nG | grep -q docker; then echo "\[\033[1;33;46m\]DOCKER\[\033[0m\] "; fi`'\
 '\[\033[`if [ "\u" = root ]; then echo "1;33;46"; elif [ "\u" = remram ]; then echo "1;36"; else echo "1;35"; fi`m\]\u'\
 '\[\033[1;37m\]\[\033[0;36m\] `date "+%H:%M:%S"`\n'\
