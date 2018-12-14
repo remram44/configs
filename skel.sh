@@ -31,6 +31,7 @@ set hlsearch
 set ignorecase
 set smartcase
 set laststatus=2
+set scrolloff=4
 
 set winheight=30
 set winminheight=5
