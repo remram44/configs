@@ -140,7 +140,7 @@ if [ "$color_prompt" = yes ]; then
         missy) _HOSTCOLOR='1;33' ;;
         axon) _HOSTCOLOR='1;32' ;;
         ks) _HOSTCOLOR='1;31' ;;
-        dibo) _HOSTCOLOR='1;34' ;;
+        tanis) _HOSTCOLOR='1;34' ;;
         *) _HOSTCOLOR='1;37' ;;
     esac
     PS1='\n'\
