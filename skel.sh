@@ -150,7 +150,7 @@ if [ "$color_prompt" = yes ]; then
 '`j=$(jobs | wc -l | xargs); if [ $j != 0 ]; then echo "\[\033[1;32m\][$j jobs] "; fi`'\
 '`if SUDO_ASKPASS=/bin/false sudo -A -v >/dev/null 2>&1; then echo "\[\033[1;33;46m\]SUDO\[\033[0m\] "; fi`'\
 '`if id -nG | grep -q docker; then echo "\[\033[1;33;46m\]DOCKER\[\033[0m\] "; fi`'\
-'\[\033[`if [ "\u" = root ]; then echo "1;33;46"; elif [ "\u" = remram ]; then echo "1;36"; else echo "1;35"; fi`m\]\u'\
+'\[\033[`if [ "\u" = root ]; then echo "1;33;45"; elif [ "\u" = remram ]; then echo "1;36"; else echo "1;35"; fi`m\]\u'\
 '\[\033[1;37m\]\[\033[0;36m\] `date "+%H:%M:%S"`\n'\
 '\[\033['$_HOSTCOLOR'm\]\h \w'\
 '`if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then if [ $(git rev-parse --is-inside-work-tree) = true ]; then echo " ($(git rev-parse --abbrev-ref HEAD 2>/dev/null))"; fi; fi`'\
