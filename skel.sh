@@ -70,7 +70,7 @@ END
 cat > .gitconfig <<'END'
 [user]
 	name = Remi Rampin
-	email = remirampin@gmail.com
+	email = r@remirampin.com
 	signingkey = 0x850C4075
 [difftool "kdiff3"]
 	path = kdiff3
