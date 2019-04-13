@@ -190,8 +190,12 @@ o(){
 a(){
     source "$1/bin/activate"
 }
-usedocker(){
-    exec sudo -g docker -E bash --init-file /home/remram/.profile
+docker(){
+    if id -nG | grep -q '\bdocker\b'; then
+        command docker "$@"
+    else
+        sudo -g docker docker "$@"
+    fi
 }
 
 dockviz(){
