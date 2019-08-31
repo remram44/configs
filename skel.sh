@@ -147,6 +147,7 @@ if [ "$color_prompt" = yes ]; then
 '`s=$?; if [ $s != 0 ]; then echo "\[\033[7;31;40m\][e: $s]\[\033[0m\] "; fi`'\
 '`if [ "x$CONDA_PREFIX" != x ]; then echo "\[\033[1;32;40m\][conda: $(basename $CONDA_PREFIX)]\[\033[0m\] "; fi`'\
 '`if [ "x$VIRTUAL_ENV" != x ]; then echo "\[\033[1;32;40m\][py: $(basename $VIRTUAL_ENV)]\[\033[0m\] "; fi`'\
+'`if [ "x$RR_KUBE_CONTEXT" != x ]; then echo "\[\033[1;32;40m\][k8s: $RR_KUBE_CONTEXT]\[\033[0m\] "; fi`'\
 '`j=$(jobs | wc -l | xargs); if [ $j != 0 ]; then echo "\[\033[1;32m\][$j jobs] "; fi`'\
 '`if SUDO_ASKPASS=/bin/false sudo -A -v >/dev/null 2>&1; then echo "\[\033[1;33;46m\]SUDO\[\033[0m\] "; fi`'\
 '`if id -nG | grep -q docker; then echo "\[\033[1;33;46m\]DOCKER\[\033[0m\] "; fi`'\
@@ -160,6 +161,7 @@ else
 '`s=$?; if [ $s != 0 ]; then echo "[e: $s] "; fi`'\
 '`if [ "x$CONDA_PREFIX" != x ]; then echo "[py: $(basename $CONDA_PREFIX)] "; fi`'\
 '`if [ "x$VIRTUAL_ENV" != x ]; then echo "[py: $(basename $VIRTUAL_ENV)] "; fi`'\
+'`if [ "x$RR_KUBE_CONTEXT" != x ]; then echo "[k8s: $RR_KUBE_CONTEXT] "; fi`'\
 '`j=$(jobs | wc -l | xargs); if [ $j != 0 ]; then echo "[$j jobs] "; fi`'\
 '`if id -nG | grep -q docker; then echo "DOCKER "; fi`'\
 '\u'\
@@ -202,6 +204,29 @@ docker-compose(){
         command docker-compose "$@"
     else
         sudo -g docker $(which docker-compose) "$@"
+    fi
+}
+export RR_KUBE_CONTEXT
+(cd; if [ -e .kube/config ]; then python3 -c "import yaml; assert not yaml.load(open('.kube/config'))['current-context']" &>/dev/null || echo "WARNING: kube context is set" >&2; fi)
+kubea(){
+    if [ "$#" = 1 ]; then
+        python3 -c "import yaml; assert '$1' in [c['name'] for c in yaml.load(open('$HOME/.kube/config'))['contexts']]"
+        RR_KUBE_CONTEXT="$1"
+    else
+        python3 -c "import yaml; [print(c['name']) for c in yaml.load(open('$HOME/.kube/config'))['contexts']]"
+    fi
+}
+kubectl(){
+    if [ -z "$RR_KUBE_CONTEXT" ]; then
+        echo "No kube context set; use kubea" >&2
+        false
+    else
+        _rr_kube_CFG=$(mktemp /tmp/kube-config-XXXXXXXXXX)
+        sed "s/^current-context:.*$/current-context: $RR_KUBE_CONTEXT/" <"$HOME/.kube/config" >"$_rr_kube_CFG"
+        KUBECONFIG=$_rr_kube_CFG command kubectl "$@"
+        _rr_kube_RET=$?
+        rm "$_rr_kube_CFG"
+        (exit $_rr_kube_RET)
     fi
 }
 
