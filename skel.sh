@@ -216,22 +216,6 @@ kubea(){
         python3 -c "import yaml; [print(c['name']) for c in yaml.load(open('$HOME/.kube/config'))['contexts']]"
     fi
 }
-kubectl-wrapper(){
-    if [ -z "$RR_KUBE_CONTEXT" ]; then
-        echo "No kube context set; use kubea" >&2
-        false
-    else
-        _rr_kube_CFG=$(mktemp /tmp/kube-config-XXXXXXXXXX)
-        sed "s/^current-context:.*$/current-context: $RR_KUBE_CONTEXT/" <"$HOME/.kube/config" >"$_rr_kube_CFG"
-        KUBECONFIG=$_rr_kube_CFG "$@"
-        _rr_kube_RET=$?
-        rm "$_rr_kube_CFG"
-        (exit $_rr_kube_RET)
-    fi
-}
-kubectl(){
-    kubectl-wrapper command kubectl "$@"
-}
 
 dockviz(){
     if [ -n "$DOCKER_HOST" ]; then
@@ -260,6 +244,48 @@ fi
 Press enter to run 'vim .bashrc'
 END
 read && vi .bashrc && . .bashrc
+
+if [ ! -d $HOME/bin ]; then
+    mkdir $HOME/bin
+elif [ -e $HOME/bin/kubectl ]; then
+    mv -i $HOME/bin/kubectl $HOME/bin/kubectl.real
+fi
+cat >~/bin/kubectl <<'END'
+#!/bin/sh
+
+if [ -z "$KUBE_CONTEXT" ]; then
+    echo "No kube context set; use kubea" >&2
+    exit 1
+else
+    # Locate actual kubectl command
+    KUBECTL=
+    if [ -x "$(dirname "$0")/kubectl.real" ]; then
+        # kubectl.real right next to this script
+        KUBECTL="$(dirname "$0")/kubectl.real"
+    else
+        KUBECTL="$(which -a kubectl | tail -n +2 | while read cmd; do
+            echo "$cmd"
+            break
+        done)"
+    fi
+    if [ -z "$KUBECTL" ]; then
+        echo "Can't find real kubectl command" >&2
+        exit 1
+    fi
+
+    # Write config with current-context set to temporary file
+    CFG=$(mktemp /tmp/kube-config-XXXXXXXXXX)
+    sed "s/^current-context:.*$/current-context: $KUBE_CONTEXT/" <"$HOME/.kube/config" >"$CFG"
+
+    # Run command
+    KUBECONFIG=$CFG $KUBECTL "$@"
+    RET=$?
+
+    # Remove temporary file
+    rm "$CFG"
+    exit $RET
+fi
+END
 
 
 ####################
