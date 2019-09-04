@@ -216,18 +216,21 @@ kubea(){
         python3 -c "import yaml; [print(c['name']) for c in yaml.load(open('$HOME/.kube/config'))['contexts']]"
     fi
 }
-kubectl(){
+kubectl-wrapper(){
     if [ -z "$RR_KUBE_CONTEXT" ]; then
         echo "No kube context set; use kubea" >&2
         false
     else
         _rr_kube_CFG=$(mktemp /tmp/kube-config-XXXXXXXXXX)
         sed "s/^current-context:.*$/current-context: $RR_KUBE_CONTEXT/" <"$HOME/.kube/config" >"$_rr_kube_CFG"
-        KUBECONFIG=$_rr_kube_CFG command kubectl "$@"
+        KUBECONFIG=$_rr_kube_CFG "$@"
         _rr_kube_RET=$?
         rm "$_rr_kube_CFG"
         (exit $_rr_kube_RET)
     fi
+}
+kubectl(){
+    kubectl-wrapper command kubectl "$@"
 }
 
 dockviz(){
