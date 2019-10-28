@@ -33,9 +33,6 @@ set smartcase
 set laststatus=2
 set scrolloff=4
 
-set winheight=30
-set winminheight=5
-
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -49,9 +46,15 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 
-"Plugin 'ctrlpvim/ctrlp.vim'
-"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard && git submodule foreach "git ls-files -co --exclude-standard | while read i; do echo \"\$path/\$i\"; done"']
-"let g:ctrlp_switch_buffer = ''
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'scrooloose/nerdtree'
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard | sort -u && git submodule foreach "git ls-files -co --exclude-standard | while read i; do echo \"\$path/\$i\"; done" | sort -u']
+let g:ctrlp_switch_buffer = ''
+noremap <leader>t :!ctags -R .<CR>
+noremap <leader>p :CtrlPTag<CR>
+noremap <leader>s :NERDTreeToggle<CR>
+noremap <leader>f :NERDTreeFind<CR>
 END
 
 cat > .screenrc <<'END'
