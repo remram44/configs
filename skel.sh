@@ -9,15 +9,24 @@ fi
 #
 cat > .vimrc <<'END'
 syntax on
-set expandtab
-set softtabstop=4
-set tabstop=4
+set tabstop=4       " Real tabs take up 4 spaces
+set softtabstop=4   "   but indent by 4 when pressing tab
+set expandtab       " Use spaces when pressing tab
+set shiftwidth=4    "   and shift by 4 spaces when indenting
 set cindent
-set shiftwidth=4
-set hidden
+set indentkeys=o,O  " Don't re-indent current line
+set hidden          " Allow hidden buffers
 set backspace=indent,eol,start
+set autoread        " Re-load files changed outside of ViM
+
+set linebreak       " Use word-wrap
+set showbreak=»\    "   with indicator
+set breakindent     "  and original line's indent
+
+set updatetime=2000 " Undo breakpoint when you pause typing 2s
 
 set nocompatible
+set mouse=a
 
 let mapleader = ","
 
@@ -25,6 +34,8 @@ nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
+" qq records, Q replays
+nnoremap Q @q
 
 set incsearch
 set hlsearch
