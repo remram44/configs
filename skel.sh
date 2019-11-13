@@ -161,7 +161,7 @@ if [ "$color_prompt" = yes ]; then
 '`s=$?; if [ $s != 0 ]; then echo "\[\033[7;31;40m\][e: $s]\[\033[0m\] "; fi`'\
 '`if [ "x$CONDA_PREFIX" != x ]; then echo "\[\033[1;32;40m\][conda: $(basename $CONDA_PREFIX)]\[\033[0m\] "; fi`'\
 '`if [ "x$VIRTUAL_ENV" != x ]; then echo "\[\033[1;32;40m\][py: $(basename $VIRTUAL_ENV)]\[\033[0m\] "; fi`'\
-'`if [ "x$RR_KUBE_CONTEXT" != x ]; then echo "\[\033[1;32;40m\][k8s: $RR_KUBE_CONTEXT]\[\033[0m\] "; fi`'\
+'`if [ "x$KUBECONFIG" != x ]; then echo "\[\033[1;32;40m\][k8s: $(basename "$KUBECONFIG")]\[\033[0m\] "; fi`'\
 '`j=$(jobs | wc -l | xargs); if [ $j != 0 ]; then echo "\[\033[1;32m\][$j jobs] "; fi`'\
 '`if SUDO_ASKPASS=/bin/false sudo -A -v >/dev/null 2>&1; then echo "\[\033[1;33;46m\]SUDO\[\033[0m\] "; fi`'\
 '`if id -nG | grep -q docker; then echo "\[\033[1;33;46m\]DOCKER\[\033[0m\] "; fi`'\
@@ -175,7 +175,7 @@ else
 '`s=$?; if [ $s != 0 ]; then echo "[e: $s] "; fi`'\
 '`if [ "x$CONDA_PREFIX" != x ]; then echo "[py: $(basename $CONDA_PREFIX)] "; fi`'\
 '`if [ "x$VIRTUAL_ENV" != x ]; then echo "[py: $(basename $VIRTUAL_ENV)] "; fi`'\
-'`if [ "x$RR_KUBE_CONTEXT" != x ]; then echo "[k8s: $RR_KUBE_CONTEXT] "; fi`'\
+'`if [ "x$KUBECONFIG" != x ]; then echo "[k8s: $(basename "$KUBECONFIG")] "; fi`'\
 '`j=$(jobs | wc -l | xargs); if [ $j != 0 ]; then echo "[$j jobs] "; fi`'\
 '`if id -nG | grep -q docker; then echo "DOCKER "; fi`'\
 '\u'\
@@ -220,14 +220,17 @@ docker-compose(){
         sudo -g docker $(which docker-compose) "$@"
     fi
 }
-export RR_KUBE_CONTEXT
-(cd; if [ -e .kube/config ]; then python3 -c "import yaml; assert not yaml.load(open('.kube/config'))['current-context']" &>/dev/null || echo "WARNING: kube context is set" >&2; fi)
+KUBECONFIG=
+export KUBECONFIG
+(cd; if [ -e .kube/config ]; then echo "WARNING: kube config is set" >&2; fi)
 kubea(){
+    # When adding configs to configs/ from gcloud, you can add --account=...
+    # to cmd-args to make it work regardless of global account set in gcloud
     if [ "$#" = 1 ]; then
-        python3 -c "import yaml; assert '$1' in [c['name'] for c in yaml.load(open('$HOME/.kube/config'))['contexts']]"
-        RR_KUBE_CONTEXT="$1"
+        if [ ! -e ~/.kube/configs/"$1" ]; then echo "Config does not exist" >&2; return 1; fi
+        KUBECONFIG=~/.kube/configs/"$1"
     else
-        python3 -c "import yaml; [print(c['name']) for c in yaml.load(open('$HOME/.kube/config'))['contexts']]"
+        ls -1 ~/.kube/configs/
     fi
 }
 
@@ -258,48 +261,6 @@ fi
 Press enter to run 'vim .bashrc'
 END
 read && vi .bashrc && . .bashrc
-
-if [ ! -d $HOME/bin ]; then
-    mkdir $HOME/bin
-elif [ -e $HOME/bin/kubectl ]; then
-    mv -i $HOME/bin/kubectl $HOME/bin/kubectl.real
-fi
-cat >~/bin/kubectl <<'END'
-#!/bin/sh
-
-if [ -z "$KUBE_CONTEXT" ]; then
-    echo "No kube context set; use kubea" >&2
-    exit 1
-else
-    # Locate actual kubectl command
-    KUBECTL=
-    if [ -x "$(dirname "$0")/kubectl.real" ]; then
-        # kubectl.real right next to this script
-        KUBECTL="$(dirname "$0")/kubectl.real"
-    else
-        KUBECTL="$(which -a kubectl | tail -n +2 | while read cmd; do
-            echo "$cmd"
-            break
-        done)"
-    fi
-    if [ -z "$KUBECTL" ]; then
-        echo "Can't find real kubectl command" >&2
-        exit 1
-    fi
-
-    # Write config with current-context set to temporary file
-    CFG=$(mktemp /tmp/kube-config-XXXXXXXXXX)
-    sed "s/^current-context:.*$/current-context: $KUBE_CONTEXT/" <"$HOME/.kube/config" >"$CFG"
-
-    # Run command
-    KUBECONFIG=$CFG $KUBECTL "$@"
-    RET=$?
-
-    # Remove temporary file
-    rm "$CFG"
-    exit $RET
-fi
-END
 
 
 ####################
