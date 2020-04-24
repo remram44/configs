@@ -27,6 +27,7 @@ set updatetime=2000 " Undo breakpoint when you pause typing 2s
 
 set nocompatible
 set mouse=a
+set visualbell
 
 let mapleader = ","
 
@@ -43,6 +44,7 @@ set ignorecase
 set smartcase
 set laststatus=2
 set scrolloff=4
+set splitright
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
