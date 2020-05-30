@@ -59,8 +59,21 @@ autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'rust-lang/rust.vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'prabirshrestha/async.vim'
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+Plugin 'posva/vim-vue'
+call vundle#end()
+filetype plugin indent on
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard | sort -u && git submodule foreach "git ls-files -co --exclude-standard | while read i; do echo \"\$path/\$i\"; done" | sort -u']
 let g:ctrlp_switch_buffer = ''
