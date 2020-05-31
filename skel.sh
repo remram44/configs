@@ -67,11 +67,9 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'rust-lang/rust.vim'
 Plugin 'leafgarland/typescript-vim'
-Plugin 'prabirshrestha/async.vim'
-Plugin 'prabirshrestha/vim-lsp'
-Plugin 'prabirshrestha/asyncomplete.vim'
-Plugin 'prabirshrestha/asyncomplete-lsp.vim'
-Plugin 'posva/vim-vue'
+Plugin 'peitalin/vim-jsx-typescript'
+Plugin 'dense-analysis/ale'
+Plugin 'neoclide/coc.nvim'
 call vundle#end()
 filetype plugin indent on
 
