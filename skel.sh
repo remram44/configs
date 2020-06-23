@@ -134,6 +134,7 @@ cat > .gitconfig <<'END'
 	cp = cherry-pick
 	st = status
 	detach = !git checkout HEAD~0
+	uref = !sh -c 'git update-ref refs/heads/$1 $2 $1' -
 END
 
 
