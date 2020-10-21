@@ -234,6 +234,13 @@ docker-compose(){
         sudo -g docker $(which docker-compose) "$@"
     fi
 }
+sudocker(){
+    if [ "x$DOCKER_HOST" != x ] || id -nG | grep -q '\bdocker\b'; then
+        "$@"
+    else
+        sudo -g docker env PATH="$PATH" "$@"
+    fi
+}
 KUBECONFIG=
 export KUBECONFIG
 (cd; if [ -e .kube/config ]; then echo "WARNING: kube config is set" >&2; fi)
