@@ -125,6 +125,7 @@ cat > .gitconfig <<'END'
 	pushf = push --force-with-lease
 	np = !sh -c 'git log --graph --decorate --branches --not --remotes=$1' -
 	serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
+	f = fetch -p
 	fa = !git fetch --all -p && git submodule foreach git fetch --all -p
 	p = !git merge --ff-only
 	dd = !git difftool --dir-diff
