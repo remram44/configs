@@ -159,6 +159,8 @@ HISTFILESIZE=2000000
 
 HISTTIMEFORMAT='%F %T '
 
+# Catch text mistakenly pasted in the terminal
+bind 'set enable-bracketed-paste on'
 
 # Make sure xterm-256color sets color_prompt
 
