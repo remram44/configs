@@ -239,7 +239,7 @@ sudocker(){
     if [ "x$DOCKER_HOST" != x ] || id -nG | grep -q '\bdocker\b'; then
         "$@"
     else
-        sudo -g docker env PATH="$PATH" "$@"
+        sudo -g docker -E env PATH="$PATH" "$@"
     fi
 }
 KUBECONFIG=
