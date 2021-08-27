@@ -216,6 +216,7 @@ alias cv='cat -v'
 alias ifconfig='/sbin/ifconfig'
 alias rs='rsync -avz --partial --progress -s'
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
+alias k='kubectl'
 o(){
     for i in "$@"; do
         xdg-open "$i" >/dev/null 2>&1
@@ -256,6 +257,17 @@ kubea(){
         KUBECONFIG=~/.kube/configs/"$1"
     else
         ls -1 ~/.kube/configs/
+        KUBECONFIG=
+    fi
+}
+ka(){
+    if [ "$#" = 0 ]; then
+        echo "No argument specified" >&2
+        return 1
+    else
+        for arg in "$@"; do
+            kubectl apply -f "$arg"
+        done
     fi
 }
 
