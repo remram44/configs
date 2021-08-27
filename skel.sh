@@ -209,6 +209,7 @@ if [ -n "$PRESENTATION" ]; then
 fi
 
 
+alias sudo='sudo '
 alias ll='ls -lh'
 alias la='ls -lAh'
 alias cv='cat -v'
