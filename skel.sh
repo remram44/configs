@@ -219,6 +219,8 @@ alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias k='kubectl'
 alias ffprobe='ffprobe -hide_banner'
 alias ffmpeg='ffmpeg -hide_banner'
+alias xcopy='xclip -in -selection clipboard'
+alias xpaste='xclip -out -selection clipboard'
 o(){
     for i in "$@"; do
         xdg-open "$i" >/dev/null 2>&1
