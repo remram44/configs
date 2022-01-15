@@ -217,6 +217,8 @@ alias ifconfig='/sbin/ifconfig'
 alias rs='rsync -avz --partial --progress -s'
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias k='kubectl'
+alias ffprobe='ffprobe -hide_banner'
+alias ffmpeg='ffmpeg -hide_banner'
 o(){
     for i in "$@"; do
         xdg-open "$i" >/dev/null 2>&1
