@@ -224,6 +224,9 @@ o(){
         xdg-open "$i" >/dev/null 2>&1
     done
 }
+trash(){
+    kioclient5 move "$1" trash:/
+}
 a(){
     source "$1/bin/activate"
 }
