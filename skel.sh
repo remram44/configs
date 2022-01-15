@@ -232,26 +232,18 @@ trash(){
 a(){
     source "$1/bin/activate"
 }
-docker(){
-    if [ "x$DOCKER_HOST" != x ] || id -nG | grep -q '\bdocker\b'; then
-        command docker "$@"
-    else
-        sudo -g docker docker "$@"
-    fi
-}
-docker-compose(){
-    if [ "x$DOCKER_HOST" != x ] || id -nG | grep -q '\bdocker\b'; then
-        command docker-compose "$@"
-    else
-        sudo -g docker $(which docker-compose) "$@"
-    fi
-}
 sudocker(){
     if [ "x$DOCKER_HOST" != x ] || id -nG | grep -q '\bdocker\b'; then
         "$@"
     else
         sudo -g docker -E env PATH="$PATH" "$@"
     fi
+}
+docker(){
+    sudocker docker "$@"
+}
+docker-compose(){
+    sudocker docker-compose "$@"
 }
 KUBECONFIG=
 export KUBECONFIG
