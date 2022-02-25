@@ -233,17 +233,20 @@ a(){
     source "$1/bin/activate"
 }
 sudocker(){
+    sudo -g docker -E env PATH="$PATH" "$@"
+}
+_sudocker_maybe(){
     if [ "x$DOCKER_HOST" != x ] || id -nG | grep -q '\bdocker\b'; then
-        "$@"
+        command "$@"
     else
-        sudo -g docker -E env PATH="$PATH" "$@"
+        sudocker "$@"
     fi
 }
 docker(){
-    sudocker docker "$@"
+    _sudocker_maybe docker "$@"
 }
 docker-compose(){
-    sudocker docker-compose "$@"
+    _sudocker_maybe docker-compose "$@"
 }
 KUBECONFIG=
 export KUBECONFIG
