@@ -227,7 +227,9 @@ o(){
     done
 }
 trash(){
-    kioclient5 move "$1" trash:/
+    for i in "$@"; do
+        kioclient5 move "$i" trash:/
+    done
 }
 a(){
     source "$1/bin/activate"
