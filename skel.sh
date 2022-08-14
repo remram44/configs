@@ -136,6 +136,9 @@ cat > .gitconfig <<'END'
 	st = status
 	detach = !git checkout HEAD~0
 	uref = !sh -c 'git update-ref refs/heads/$1 $2 $1' -
+[credential "https://git.rampin.org"]
+	username = remi
+	helper = !sh -c '[ "$1" = get ] && printf "password=%s" "$(pass show git.rampin.org | head -n 1)"' -
 END
 
 
