@@ -325,6 +325,13 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8q5UxU/iOJUj7tRFKAPhRg5iHI6dfPfzOfEaSmJI9
 ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAtwykPMe1ypsoLwk4nXlVYJK1F/gPJ2f9AXGQgNkJkNXQ4iGJt0UoMtCRcSWRqAmTosILWmAeQsHDkSObXgkqYypDgkKuE7quP0557kj8bclyMWKfCqrPZz/amxJ7PGfTzx6T5Z+3bbLf2GJGcYzKUheF7caCgFLs0nEQuwVxPQM= rr4_remram_nexus4
 END
 
+if ! [ -f .ssh/config ]; then
+    cat >> .ssh/config <<'END'
+ServerAliveInterval 120
+AddKeysToAgent confirm
+END
+fi
+
 
 ####################
 # Install a package with aptitude
