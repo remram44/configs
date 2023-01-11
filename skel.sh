@@ -120,6 +120,8 @@ cat > .gitconfig <<'END'
 	autoSquash = true
 [push]
 	default = simple
+[log]
+	date = iso
 [alias]
 	co = checkout
 	pushf = push --force-with-lease
