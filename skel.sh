@@ -175,7 +175,7 @@ if [ "$color_prompt" = yes ]; then
     case $(hostname) in
         missy) _HOSTCOLOR='1;33' ;;
         axon) _HOSTCOLOR='1;32' ;;
-        ks) _HOSTCOLOR='1;31' ;;
+        spire) _HOSTCOLOR='1;31' ;;
         tanis) _HOSTCOLOR='1;34' ;;
         *) _HOSTCOLOR='1;37' ;;
     esac
