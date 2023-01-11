@@ -298,7 +298,11 @@ setmonitor(){
     fi
 }
 et(){
-    date -d "$1" +'%Z %z'
+    if [ -z "$1" ]; then
+        date +'%Z %z'
+    else
+        date -d "$1" +'%Z %z'
+    fi
 }
 if type thefuck &>/dev/null; then
     eval $(thefuck --alias)
