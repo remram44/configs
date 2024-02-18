@@ -106,6 +106,7 @@ cat > .gitconfig <<'END'
 	prompt = false
 [diff]
 	tool = kdiff3
+	algorithm = histogram
 [mergetool "kdiff3"]
 	path = kdiff3
 	trustExitCode = false
